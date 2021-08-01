@@ -2,6 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>MH.Excel.Export</Title>
+        <Description>Export generic class to excel with sub class</Description>
+        <PackageProjectUrl>https://github.com/mohsen2hasani/MH.Excel/tree/Dev</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/mohsen2hasani/MH.Excel/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/mohsen2hasani/MH.Excel/tree/Dev</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
