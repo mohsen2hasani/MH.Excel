@@ -29,6 +29,61 @@ namespace MH.Excel.Export
 
         #endregion
 
+         /// <summary>
+        /// Get excel data from class with sub class for sub table
+        /// </summary>
+        /// <param name="list">List of object</param>
+        /// <param name="fileName">Download file name</param>
+        /// <typeparam name="T">Type of object</typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public static async Task<ExcelData> ExportToXlsxAsync<T>(ICollection<T> list, string fileName)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (!list.Any())
+                return default;
+
+            var propertyManager = new PropertyManager<T>();
+
+            var properties = TypeDescriptor.GetProperties(typeof(T));
+
+            foreach (var prop in properties.Cast<PropertyDescriptor>()
+                .Where(prop => !prop.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>))))
+                propertyManager.Add(new PropertyByName<T>(GetDisplayName<T>(prop), a => prop.GetValue(a)));
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            await using var stream = new MemoryStream();
+            using (var xlPackage = new ExcelPackage(stream))
+            {
+                var baseWorksheet = xlPackage.Workbook.Worksheets.Add("Excel");
+                var fWorksheet = xlPackage.Workbook.Worksheets.Add("SubClass");
+                fWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
+
+                propertyManager.WriteCaption(baseWorksheet);
+
+                var itemRow = 1;
+
+                foreach (var item in list)
+                {
+                    itemRow += 1;
+                    propertyManager.CurrentObject = item;
+                    await propertyManager.WriteToXlsxAsync(baseWorksheet, itemRow);
+                }
+
+                await xlPackage.SaveAsync();
+            }
+
+            return new ExcelData
+            {
+                FileContents = stream.ToArray(),
+                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                FileDownloadName = $"{fileName}.xlsx"
+            };
+        }
+         
         /// <summary>
         /// Get excel data from class with sub class for sub table
         /// </summary>
