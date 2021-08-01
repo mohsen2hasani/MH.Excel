@@ -1,4 +1,19 @@
-Generate Excel from generic class with sub class:
+# MH.Excel.Export
+
+`MH.Excel.Export` is a Excel (.xlsx) generator for ASP.NET Core applications.
+
+## Install via NuGet
+
+To install `MH.Excel.Export`, run the following command in the Package Manager Console:
+
+```
+PM> Install-Package MH.Excel.Export
+``` 
+You can also view the [package page](https://www.nuget.org/packages/MH.Excel.Export) on NuGet.
+
+## Usage:
+
+After installing the MH.Excel.Export package, you can send any classes with (or without) `[Display(Name ="")]` attribute and get required data for pass to `return File();`
 
 ![dntcaptcha](/MH.Excel.Export.png)
 
