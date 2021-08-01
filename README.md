@@ -15,7 +15,7 @@ You can also view the [package page](https://www.nuget.org/packages/MH.Excel.Exp
 
 After installing the MH.Excel.Export package, you can send any classes with (or without) `[Display(Name ="")]` attribute and get required data for pass to `return File();`
 
-![dntcaptcha](/MH.Excel.Export.png)
+![dntcaptcha](https://raw.githubusercontent.com/mohsen2hasani/MH.Excel/master/MH.Excel.Export.png)
 
 ```
     public class TestController : BaseController
