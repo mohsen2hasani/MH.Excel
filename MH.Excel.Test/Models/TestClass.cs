@@ -30,16 +30,16 @@ namespace MH.Excel.Test.Models
                     });
                 }
 
-                // for (var j = 1; j < 10; j++)
-                // {
-                //     test.List2.Add(new SubClassTest2
-                //     {
-                //         Id = 50 * j,
-                //         Type = $"Type - {j}",
-                //         Type2 = $"Type2 - {j}",
-                //         Type3 = $"Lorem ipsum is placeholder text - {j}"
-                //     });
-                // }
+                for (var j = 1; j < 10; j++)
+                {
+                    test.List2.Add(new SubClassTest2
+                    {
+                        Id = 50 * j,
+                        Type = $"Type - {j}",
+                        Type2 = $"Type2 - {j}",
+                        Type3 = $"Lorem ipsum is placeholder text - {j}"
+                    });
+                }
 
                 tests.Add(test);
             }
