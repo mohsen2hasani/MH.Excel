@@ -35,6 +35,11 @@ namespace MH.Excel.Export
         {
             foreach (var prop in properties.Cast<PropertyDescriptor>().Where(prop => prop.PropertyType.GetInterfaces().Any(x => x == typeof(ICollection<TSubClass>))))
             {
+                var subClass1S = (prop.GetValue(item) as IEnumerable<TSubClass> ?? Array.Empty<TSubClass>()).ToList();
+
+                if (!subClass1S.Any())
+                    continue;
+
                 _itemRow += 1;
 
                 var subItemsManager = new PropertyManager<TSubClass>();
@@ -48,8 +53,6 @@ namespace MH.Excel.Export
                 subItemsManager.WriteCaption(baseWorksheet, captionBackgroundColor, _itemRow, 1);
                 baseWorksheet.Row(_itemRow).OutlineLevel = 1;
                 baseWorksheet.Row(_itemRow).Collapsed = true;
-
-                var subClass1S = (prop.GetValue(item) as IEnumerable<TSubClass> ?? Array.Empty<TSubClass>()).ToList();
 
                 foreach (var subClass1 in subClass1S)
                 {
