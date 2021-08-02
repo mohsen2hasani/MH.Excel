@@ -6,9 +6,9 @@
         <Title>MH.Excel.Export</Title>
         <Description>Export generic class to excel with sub class</Description>
         <PackageProjectUrl>https://github.com/mohsen2hasani/MH.Excel</PackageProjectUrl>
-        <PackageLicenseUrl>https://raw.githubusercontent.com/mohsen2hasani/MH.Excel/master/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/mohsen2hasani/MH.Excel</RepositoryUrl>
-        <PackageVersion>1.1.0</PackageVersion>
+        <PackageVersion>1.2.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

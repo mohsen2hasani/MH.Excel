@@ -12,34 +12,36 @@ namespace MH.Excel.Test.Models
         public string Name { get; set; }
 
         [Display(Name = "Last Name")]
-        public string Name2 { get; set; }
-
+        public string LastName { get; set; }
+        
+        [Display(Name = "About user")]
+        public string Description { get; set; }
 
         [Display(Name = "Items")]
         public List<SubClassTest> List { get; set; } = new();
-
-
+        
         public List<TestClass> GetList()
         {
             var tests = new List<TestClass>();
 
-            for (int i = 1; i < 10; i++)
+            for (var i = 1; i < 10; i++)
             {
                 var test = new TestClass
                 {
                     Id = i,
                     Name = $"Name - {i}",
-                    Name2 = $"Name2 - {i}",
+                    LastName = $"LastName - {i}",
+                    Description = "Lorem ipsum is placeholder text"
                 };
 
-                for (int j = 1; j < 10; j++)
+                for (var j = 1; j < 10; j++)
                 {
                     test.List.Add(new SubClassTest
                     {
                         Id = 50 * j,
                         Type = $"Type - {j}",
                         Type2 = $"Type2 - {j}",
-                        Type3 = $"Type3 - {j}"
+                        Type3 = $"Lorem ipsum is placeholder text - {j}"
                     });
                 }
 

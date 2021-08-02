@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -29,21 +30,25 @@ namespace MH.Excel.Export
 
         #endregion
 
-         /// <summary>
+        /// <summary>
         /// Get excel data from class with sub class for sub table
         /// </summary>
         /// <param name="list">List of object</param>
         /// <param name="fileName">Download file name</param>
+        /// <param name="rightToLeft">false</param>
+        /// <param name="captionBackgroundColor">Caption background color</param>
         /// <typeparam name="T">Type of object</typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static async Task<ExcelData> ExportToXlsxAsync<T>(ICollection<T> list, string fileName)
+        public static async Task<ExcelData> ExportToXlsxAsync<T>(ICollection<T> list, string fileName, bool rightToLeft = false, Color? captionBackgroundColor = null)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (!list.Any())
                 return default;
+
+            captionBackgroundColor ??= Color.FromArgb(71, 195, 99);
 
             var propertyManager = new PropertyManager<T>();
 
@@ -59,10 +64,9 @@ namespace MH.Excel.Export
             using (var xlPackage = new ExcelPackage(stream))
             {
                 var baseWorksheet = xlPackage.Workbook.Worksheets.Add("Excel");
-                var fWorksheet = xlPackage.Workbook.Worksheets.Add("SubClass");
-                fWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                baseWorksheet.View.RightToLeft = rightToLeft;
 
-                propertyManager.WriteCaption(baseWorksheet);
+                propertyManager.WriteCaption(baseWorksheet, captionBackgroundColor.Value);
 
                 var itemRow = 1;
 
@@ -72,6 +76,8 @@ namespace MH.Excel.Export
                     propertyManager.CurrentObject = item;
                     await propertyManager.WriteToXlsxAsync(baseWorksheet, itemRow);
                 }
+
+                baseWorksheet.Cells[baseWorksheet.Dimension.Address].AutoFitColumns();
 
                 await xlPackage.SaveAsync();
             }
@@ -83,23 +89,27 @@ namespace MH.Excel.Export
                 FileDownloadName = $"{fileName}.xlsx"
             };
         }
-         
+
         /// <summary>
         /// Get excel data from class with sub class for sub table
         /// </summary>
         /// <param name="list">List of object</param>
         /// <param name="fileName">Download file name</param>
+        /// <param name="rightToLeft">false</param>
+        /// <param name="captionBackgroundColor">Caption background color</param>
         /// <typeparam name="T">Type of object</typeparam>
         /// <typeparam name="TSubClass1">Type of sub class object</typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static async Task<ExcelData> ExportToXlsxAsync<T, TSubClass1>(ICollection<T> list, string fileName)
+        public static async Task<ExcelData> ExportToXlsxAsync<T, TSubClass1>(ICollection<T> list, string fileName, bool rightToLeft = false, Color? captionBackgroundColor = null)
         {
             if (list == null)
                 throw new ArgumentNullException(nameof(list));
 
             if (!list.Any())
                 return default;
+
+            captionBackgroundColor ??= Color.FromArgb(71, 195, 99);
 
             var propertyManager = new PropertyManager<T>();
 
@@ -115,10 +125,9 @@ namespace MH.Excel.Export
             using (var xlPackage = new ExcelPackage(stream))
             {
                 var baseWorksheet = xlPackage.Workbook.Worksheets.Add("Excel");
-                var fWorksheet = xlPackage.Workbook.Worksheets.Add("SubClass");
-                fWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
+                baseWorksheet.View.RightToLeft = rightToLeft;
 
-                propertyManager.WriteCaption(baseWorksheet);
+                propertyManager.WriteCaption(baseWorksheet, captionBackgroundColor.Value);
 
                 var itemRow = 1;
 
@@ -140,7 +149,7 @@ namespace MH.Excel.Export
                             .Where(subProp => subProp.PropertyType.GetInterfaces().All(x => x != typeof(ICollection<>))))
                             subItemsManager.Add(new PropertyByName<TSubClass1>(GetDisplayName<TSubClass1>(subProp), a => subProp.GetValue(a)));
 
-                        subItemsManager.WriteCaption(baseWorksheet, itemRow, 1);
+                        subItemsManager.WriteCaption(baseWorksheet, captionBackgroundColor.Value, itemRow, 1);
                         baseWorksheet.Row(itemRow).OutlineLevel = 1;
                         baseWorksheet.Row(itemRow).Collapsed = true;
 
@@ -150,12 +159,14 @@ namespace MH.Excel.Export
                         {
                             itemRow++;
                             subItemsManager.CurrentObject = subClass1;
-                            await subItemsManager.WriteToXlsxAsync(baseWorksheet, itemRow, 1, fWorksheet);
+                            await subItemsManager.WriteToXlsxAsync(baseWorksheet, itemRow, 1);
                             baseWorksheet.Row(itemRow).OutlineLevel = 1;
                             baseWorksheet.Row(itemRow).Collapsed = true;
                         }
                     }
                 }
+
+                baseWorksheet.Cells[baseWorksheet.Dimension.Address].AutoFitColumns();
 
                 await xlPackage.SaveAsync();
             }

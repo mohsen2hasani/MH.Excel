@@ -45,9 +45,8 @@ namespace MH.Excel.Export.Helper
         /// <param name="worksheet">Data worksheet</param>
         /// <param name="row">Row index</param>
         /// <param name="cellOffset">Cell offset</param>
-        /// <param name="fWorksheet">Filters worksheet</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public async Task WriteToXlsxAsync(ExcelWorksheet worksheet, int row, int cellOffset = 0, ExcelWorksheet fWorksheet = null)
+        public async Task WriteToXlsxAsync(ExcelWorksheet worksheet, int row, int cellOffset = 0)
         {
             if (CurrentObject == null)
                 return;
@@ -64,16 +63,17 @@ namespace MH.Excel.Export.Helper
         /// Write caption (first row) to XLSX worksheet
         /// </summary>
         /// <param name="worksheet">worksheet</param>
+        /// <param name="backgroundColor">Caption background color</param>
         /// <param name="row">Row number</param>
         /// <param name="cellOffset">Cell offset</param>
-        public void WriteCaption(ExcelWorksheet worksheet, int row = 1, int cellOffset = 0)
+        public void WriteCaption(ExcelWorksheet worksheet, Color backgroundColor, int row = 1, int cellOffset = 0)
         {
             foreach (var caption in _properties.Values)
             {
                 var cell = worksheet.Cells[row, caption.PropertyOrderPosition + cellOffset];
                 cell.Value = caption;
 
-                SetCaptionStyle(cell);
+                SetCaptionStyle(cell, backgroundColor);
                 cell.Style.Hidden = false;
             }
         }
@@ -82,10 +82,11 @@ namespace MH.Excel.Export.Helper
         /// Set caption style to excel cell
         /// </summary>
         /// <param name="cell">Excel cell</param>
-        public void SetCaptionStyle(ExcelRange cell)
+        /// <param name="backgroundColor">Caption background color</param>
+        public void SetCaptionStyle(ExcelRange cell, Color backgroundColor)
         {
             cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-            cell.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(184, 204, 228));
+            cell.Style.Fill.BackgroundColor.SetColor(backgroundColor);
             cell.Style.Font.Bold = true;
         }
     }
