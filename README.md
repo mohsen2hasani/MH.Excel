@@ -15,21 +15,33 @@ You can also view the [package page](https://www.nuget.org/packages/MH.Excel.Exp
 
 After installing the MH.Excel.Export package, you can send any classes with (or without) `[Display(Name ="")]` attribute and get required data for pass to `return File();`
 
-![dntcaptcha](https://raw.github.com/mohsen2hasani/MH.Excel/master/MH.Excel.Export.png)
+![dntcaptcha](https://raw.github.com/mohsen2hasani/MH.Excel/master/MH.Excel.Export.Simple.jpg)
+
+![dntcaptcha](https://raw.github.com/mohsen2hasani/MH.Excel/master/MH.Excel.ExportWithSubClass.jpg)
+
 
 ```
-public class HomeController : Controller
+public async Task<IActionResult> Simple()
 {
-    public async Task<IActionResult> Index()
-    {
-        var list = new TestClass().GetList();
+    var list = new TestClass().GetList();
 
-        var excel = await ExportManager.ExportToXlsxAsync<TestClass, TestClass.SubClassTest>(list, "Test Excel Class");
+    var excel = await ExportManager.ExportToXlsxAsync(list, "Test Simple Excel");
 
-        return File(excel.FileContents, excel.ContentType, excel.FileDownloadName);
-    }
+    return File(excel.FileContents, excel.ContentType, excel.FileDownloadName);
 }
 
+public async Task<IActionResult> ExportWithSubClass()
+{
+    var list = new TestClass().GetList();
+
+    var excel = await ExportManager.ExportToXlsxAsync<TestClass, TestClass.SubClassTest>(list, "Test 2 Level Excel");
+
+    return File(excel.FileContents, excel.ContentType, excel.FileDownloadName);
+}
+```
+
+TestClass
+```
 public class TestClass
 {
     [Display(Name = "Id")]
