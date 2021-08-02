@@ -4,11 +4,11 @@
         <TargetFramework>net5.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>MH.Excel.Export</Title>
-        <Description>Export generic class to excel with sub class</Description>
+        <Description>Export generic class to Excel with subclasses</Description>
         <PackageProjectUrl>https://github.com/mohsen2hasani/MH.Excel</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/mohsen2hasani/MH.Excel</RepositoryUrl>
-        <PackageVersion>1.2.0</PackageVersion>
+        <PackageVersion>1.3.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
