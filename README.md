@@ -1,3 +1,7 @@
+[![NuGet Status](https://img.shields.io/nuget/v/MH.Excel.Export)](https://www.nuget.org/packages/MH.Excel.Export)
+[![Nuget Status](https://img.shields.io/nuget/vpre/MH.Excel.Export)](https://www.nuget.org/packages/MH.Excel.Export)
+[![Nuget Status](https://img.shields.io/nuget/dt/MH.Excel.Export)](https://www.nuget.org/packages/MH.Excel.Export)
+
 # MH.Excel.Export
 
 `MH.Excel.Export` is a Excel (.xlsx) generator for ASP.NET Core applications.
