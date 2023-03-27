@@ -4,7 +4,7 @@
 
 # MH.Excel.Export
 
-`MH.Excel.Export` is a Excel (.xlsx) generator for ASP.NET Core applications.
+`MH.Excel.Export` is a multi-level Excel (.xlsx) generator for ASP.NET Core applications.
 
 ## Install via NuGet
 
@@ -17,7 +17,7 @@ You can also view the [package page](https://www.nuget.org/packages/MH.Excel.Exp
 
 ## Usage:
 
-After installing the MH.Excel.Export package, you can send any classes with (or without) `[Display(Name ="")]` attribute and get required data for pass to `return File();`
+After installing the MH.Excel.Export package, you can send any classes with/without `[Display(Name ="")]` attribute and get required data for pass to `return File();`
 
 ![dntcaptcha](https://raw.github.com/mohsen2hasani/MH.Excel/master/MH.Excel.Export.Simple.jpg)
 

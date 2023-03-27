@@ -1,19 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>MH.Excel.Export</Title>
         <Description>Export generic class to Excel with subclasses</Description>
         <PackageProjectUrl>https://github.com/mohsen2hasani/MH.Excel</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/mohsen2hasani/MH.Excel</RepositoryUrl>
-        <PackageVersion>1.5.0</PackageVersion>
+        <PackageVersion>1.7.0</PackageVersion>
         <LangVersion>default</LangVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EPPlus" Version="6.0.3" />
+        <PackageReference Include="EPPlus" Version="6.2.0"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
