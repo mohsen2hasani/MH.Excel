@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>MH.Excel.Export</Title>
         <Description>Export generic class to Excel with subclasses</Description>
@@ -14,8 +14,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EPPlus" Version="6.2.0"/>
+        <PackageReference Include="EPPlus" Version="7.0.2"/>
         <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
     </ItemGroup>
 
 </Project>
