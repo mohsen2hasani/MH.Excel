@@ -8,7 +8,7 @@
         <PackageProjectUrl>https://github.com/mohsen2hasani/MH.Excel</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/mohsen2hasani/MH.Excel</RepositoryUrl>
-        <PackageVersion>1.7.0</PackageVersion>
+        <PackageVersion>1.8.0</PackageVersion>
         <LangVersion>default</LangVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
